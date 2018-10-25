@@ -287,7 +287,7 @@ class Euca2oolsImageUtils(object):
                                  'is:{1}'.format(destpath, create_path))
 
         size = self.getHttpRemoteImageSize(image_url)
-        if (size <  machine.get_available(destpath, unit=self.__class__.gig)):
+        if (size > machine.get_available(destpath, unit=(self.gig/self.kb))):
             raise Exception("Not enough available space at: " +
                             str(destpath) + ", for image: " + str(image_url))
         timeout = size * time_per_gig
