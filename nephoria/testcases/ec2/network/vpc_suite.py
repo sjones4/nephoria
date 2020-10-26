@@ -4572,7 +4572,7 @@ class VpcSuite(CliTestRunner):
                 if not out:
                     raise Exception('Testfile not found or empty on ssh host:{0}, id:{1}'
                                     .format(ssh.host, id))
-                instance_id = re.search('i-\w{8}', out)
+                instance_id = re.search('i-\w{8}\w{9}?', out)
                 if instance_id:
                     instance_id = instance_id.group()
                     if instance_id != id:

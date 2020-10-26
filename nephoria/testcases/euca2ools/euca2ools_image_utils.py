@@ -770,7 +770,7 @@ class Euca2oolsImageUtils(object):
         cmd = 'euca-upload-import-volume ' + str(cmdargs)
         out = machine.sys(cmd=cmd, code=0)
         for line in out:
-            lre = re.search('import-vol-\w{8}', line)
+            lre = re.search('import-vol-\w{8}\w{9}?', line)
             if lre:
                 taskid = lre.group()
         self.log.info('Import taskid:' + str(taskid))
@@ -892,7 +892,7 @@ class Euca2oolsImageUtils(object):
         out = machine.sys(cmd=cmd, timeout=timeout, code=0)
         taskid = None
         for line in out:
-            lre = re.search('import-i-\w{8}', line)
+            lre = re.search('import-i-\w{8}\w{9}?', line)
             if lre:
                 taskid = lre.group()
         if not taskid:
