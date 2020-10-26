@@ -4028,7 +4028,7 @@ disable_root: false"""
         :param image: Image object to use, default is pick the first emi found in the system
         :param keypair: Keypair name to use for the instances, defaults to none
         :param group: Security group name to apply to this set of instnaces, defaults to none
-        :param type: VM type to use for these instances, defaults to m1.small
+        :param type: VM type to use for these instances, defaults to t2.small
         :param zone: Availability zone to run these instances
         :param min: Minimum instnaces to launch, default 1
         :param max: Maxiumum instances to launch, default 1
@@ -6985,7 +6985,7 @@ disable_root: false"""
         Modify instance type attributes such as cpu, disk, memory, and network interface
         counts.
 
-        :param instance_type: string name of instance type. (ie. 'm1.small')
+        :param instance_type: string name of instance type. (ie. 't2.small')
         :param cpu: int number of CPUs
         :param disk: int number of disks
         :param memory: int Gigs of memory

@@ -43,7 +43,7 @@ Purpose - can be used to wrap euca2ools commands installed locally on the tester
 Required arguments: credential path::
 
      public_cloud = Eucaops(credpath="~/.eucarc")    
-     public_cloud.run_instance(image) ## run an m1.small instance using image
+     public_cloud.run_instance(image) ## run an instance using image
 
 
 Config file example

@@ -63,7 +63,7 @@ CONFIG FILES:             --->:  []
 -------------------------------------------------------------------------
 TEST ARGS:                       VALUE:
 ----------                      ------
-args                      --->:  Namespace(clc=None, config=None, config_file=None, configblocks=[], configfile=None, configsections=['MEMO', 'globals', 'eutestcase'], cred_path=None, credpath=None, emi=None, html_anchors=False, ignoreblocks=[], instance_password=None, instance_user='root', keypair=None, log_level='debug', logfile=None, logfile_level='debug', password=None, region=None, tests=[], use_color=False, user_data=None, vmtype='c1.medium', zone=None)
+args                      --->:  Namespace(clc=None, config=None, config_file=None, configblocks=[], configfile=None, configsections=['MEMO', 'globals', 'eutestcase'], cred_path=None, credpath=None, emi=None, html_anchors=False, ignoreblocks=[], instance_password=None, instance_user='root', keypair=None, log_level='debug', logfile=None, logfile_level='debug', password=None, region=None, tests=[], use_color=False, user_data=None, vmtype='t2.medium', zone=None)
 clc                       --->:  None
 config                    --->:  None
 config_file               --->:  None
@@ -88,10 +88,10 @@ region                    --->:  None
 tests                     --->:  []
 use_color                 --->:  False
 user_data                 --->:  None
-vmtype                    --->:  c1.medium
+vmtype                    --->:  t2.medium
 zone                      --->:  None
 -------------------------------------------------------------------------
-Out[14]: Namespace(args=Namespace(clc=None, config=None, config_file=None, configblocks=[], configfile=None, configsections=['MEMO', 'globals', 'eutestcase'], cred_path=None, credpath=None, emi=None, html_anchors=False, ignoreblocks=[], instance_password=None, instance_user='root', keypair=None, log_level='debug', logfile=None, logfile_level='debug', password=None, region=None, tests=[], use_color=False, user_data=None, vmtype='c1.medium', zone=None), clc=None, config=None, config_file=None, configblocks=[], configfile=None, configsections=['MEMO', 'globals', 'eutestcase'], cred_path=None, credpath=None, debug_method=<bound method EutesterTestCase.debug of <nephoria.testcase_utils.eutestcase.EutesterTestCase testMethod=eutestcase>>, emi=None, html_anchors=False, ignoreblocks=[], instance_password=None, instance_user='root', keypair=None, log_level='debug', logfile=None, logfile_level='debug', logger=<cloud_utils.log_utils.eulogger.Eulogger object at 0x10a7b2210>, password=None, region=None, tests=[], use_color=False, user_data=None, vmtype='c1.medium', zone=None)
+Out[14]: Namespace(args=Namespace(clc=None, config=None, config_file=None, configblocks=[], configfile=None, configsections=['MEMO', 'globals', 'eutestcase'], cred_path=None, credpath=None, emi=None, html_anchors=False, ignoreblocks=[], instance_password=None, instance_user='root', keypair=None, log_level='debug', logfile=None, logfile_level='debug', password=None, region=None, tests=[], use_color=False, user_data=None, vmtype='t2.medium', zone=None), clc=None, config=None, config_file=None, configblocks=[], configfile=None, configsections=['MEMO', 'globals', 'eutestcase'], cred_path=None, credpath=None, debug_method=<bound method EutesterTestCase.debug of <nephoria.testcase_utils.eutestcase.EutesterTestCase testMethod=eutestcase>>, emi=None, html_anchors=False, ignoreblocks=[], instance_password=None, instance_user='root', keypair=None, log_level='debug', logfile=None, logfile_level='debug', logger=<cloud_utils.log_utils.eulogger.Eulogger object at 0x10a7b2210>, password=None, region=None, tests=[], use_color=False, user_data=None, vmtype='t2.medium', zone=None)
 
 In [15]: test.
 Display all 116 possibilities? (y or n)
@@ -357,7 +357,7 @@ Example to retrieve an arg from a testcase obj called 'testcase': testcase.args.
 -------------------------------------------------------------------------
 TEST ARGS:                       VALUE:
 ----------                      ------
-args                      --->:  Namespace(config=None, config_file=None, configblocks=[], configfile=None, configsections=['MEMO', 'globals', 'eutestcase'], cred_path=None, credpath=None, html_anchors=False, ignoreblocks=[], instance_password=None, instance_user='root', keypair=None, log_level='debug', logfile=None, logfile_level='debug', password='foobar', region=None, test_ip='10.111.5.100', use_color=False, user_data=None, vmtype='c1.medium', zone=None)
+args                      --->:  Namespace(config=None, config_file=None, configblocks=[], configfile=None, configsections=['MEMO', 'globals', 'eutestcase'], cred_path=None, credpath=None, html_anchors=False, ignoreblocks=[], instance_password=None, instance_user='root', keypair=None, log_level='debug', logfile=None, logfile_level='debug', password='foobar', region=None, test_ip='10.111.5.100', use_color=False, user_data=None, vmtype='t2.medium', zone=None)
 config                    --->:  None
 config_file               --->:  None
 configblocks              --->:  []
@@ -380,7 +380,7 @@ region                    --->:  None
 test_ip                   --->:  10.111.5.100
 use_color                 --->:  False
 user_data                 --->:  None
-vmtype                    --->:  c1.medium
+vmtype                    --->:  t2.medium
 zone                      --->:  None
 -------------------------------------------------------------------------
 
