@@ -318,7 +318,7 @@ class CliTestRunner(object):
                             "default": None}},
         'vmtype': {'args': ["--vmtype"],
                    'kwargs': {"help": "Virtual Machine Type to use in this test",
-                              "default": "c1.medium"}},
+                              "default": "t2.medium"}},
         'clc': {'args': ["--clc"],
                 'kwargs': {"help": "Address of Machine hosting CLC services",
                            "default": None}},

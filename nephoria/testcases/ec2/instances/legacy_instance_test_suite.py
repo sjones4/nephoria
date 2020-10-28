@@ -556,8 +556,8 @@ class LegacyInstanceTestSuite(CliTestRunner):
 
     def test6_MultipleInstances(self):
         """
-        This case was developed to test the maximum number of m1.small vm types a configured
-        cloud can run.  The test runs the maximum number of m1.small vm types allowed, then
+        This case was developed to test the maximum number of t2.small vm types a configured
+        cloud can run.  The test runs the maximum number of t2.small vm types allowed, then
         tests to see if all the instances reached a running state.  If there is a failure,
         the test case errors out; logging the results.
         """
@@ -572,8 +572,8 @@ class LegacyInstanceTestSuite(CliTestRunner):
 
     def test7_LargestInstance(self):
         """
-        This case was developed to test the maximum number of c1.xlarge vm types a configured
-        cloud can run.  The test runs the maximum number of c1.xlarge vm types allowed, then
+        This case was developed to test the maximum number of t2.xlarge vm types a configured
+        cloud can run.  The test runs the maximum number of t2.xlarge vm types allowed, then
         tests to see if all the instances reached a running state.  If there is a failure,
         the test case errors out; logging the results.
         """
@@ -581,7 +581,7 @@ class LegacyInstanceTestSuite(CliTestRunner):
             self.user.ec2.terminate_instances(self.current_instances)
             self.set_instances(None)
         params = copy.copy(self.run_instance_params)
-        params['type'] = 'c1.xlarge'
+        params['type'] = 't2.xlarge'
         instances = self.run_image(**params)
         self.set_instances(instances)
         return instances
