@@ -26,7 +26,7 @@ protocols = {'ICMP': {'protocol': ICMP, 'count': pkt_count},
 vpc1_sec_group1, vpc1_sec_group2 = self.get_test_security_groups(vpc=vpc1, count=2, rules=[])
 vpc2_sec_group1, vpc2_sec_group2 = self.get_test_security_groups(vpc=vpc2, count=2, rules=[]
 Zones = self.user.ec2.get_zone_names()
-Vmtypes = ['c1.medium']
+Vmtypes = ['t2.medium']
 subnet1 = self.default_subnet
 subnet2 = get_test_subnets(count=1)[0]
 eni_count =??
@@ -121,7 +121,7 @@ class VpcSuite(CliTestRunner):
     _DEFAULT_CLI_ARGS['proxy_vmtype'] = {
         'args': ['--proxy-vmtype'],
         'kwargs': {'help': 'Vm type to use for proxy test instance',
-                   'default': 'm1.large'}}
+                   'default': 't2.large'}}
 
     SUBNET_TEST_TAG = "SUBNET_TEST_TAG"
     SECURITY_GROUP_TEST_TAG = "SECURITY_GROUP_TEST_TAG"
@@ -825,7 +825,7 @@ class VpcSuite(CliTestRunner):
     def create_test_instances(self, emi=None, key=None, group=None, zone=None, subnet=None,
                               count=1, monitor_to_running=True, auto_connect=True, tag=True,
                               private_addressing=False, network_interface_collection=None,
-                              vmtype='m1.small', user=None):
+                              vmtype='t2.small', user=None):
         """
         Creates test instances using the criteria provided. This method is intended to be
         called from 'get_test_instances()'.
@@ -3833,7 +3833,7 @@ class VpcSuite(CliTestRunner):
         subnets = []
         group = self.get_test_security_groups(vpc=vpc, user=user, count=1)[0]
         try:
-            self.modify_vm_type_store_orig('m1.small', network_interfaces=3)
+            self.modify_vm_type_store_orig('t2.small', network_interfaces=3)
             for zone in self.zones:
                 subnet = self.get_non_default_test_subnets_for_vpc(vpc=vpc, user=user, zone=zone,
                                                                    count=1)[0]
@@ -3889,14 +3889,14 @@ class VpcSuite(CliTestRunner):
         subnets = []
         group = self.get_test_security_groups(vpc=vpc, user=user, count=1)[0]
         try:
-            self.modify_vm_type_store_orig('m1.small', network_interfaces=3)
+            self.modify_vm_type_store_orig('t2.small', network_interfaces=3)
             for zone in self.zones:
                 subnet = self.get_non_default_test_subnets_for_vpc(vpc=vpc, user=user, zone=zone,
                                                                    count=1)[0]
                 subnets.append(subnet)
                 vm = self.get_test_instances(zone=zone, group_id=group, subnet_id=subnet.id,
                                              count=1, user=user, auto_connect=True,
-                                             instance_type='m1.small')[0]
+                                             instance_type='t2.small')[0]
                 instances.append(vm)
 
                 if len(vm.interfaces) > 1:
@@ -3943,7 +3943,7 @@ class VpcSuite(CliTestRunner):
         user.ec2.show_security_group(group)
         try:
             # Temporarily bump up the default VM type ENI count...
-            self.modify_vm_type_store_orig('m1.small', network_interfaces=3)
+            self.modify_vm_type_store_orig('t2.small', network_interfaces=3)
             for zone in self.zones:
                 subnet = self.get_non_default_test_subnets_for_vpc(vpc=vpc, user=user, zone=zone,
                                                                    count=1)[0]
@@ -4005,7 +4005,7 @@ class VpcSuite(CliTestRunner):
         group = self.get_test_security_groups(vpc=vpc, count=1, user=user)[0]
 
         try:
-            self.modify_vm_type_store_orig('m1.small', network_interfaces=3)
+            self.modify_vm_type_store_orig('t2.small', network_interfaces=3)
             for zone in self.zones:
                 subnet = self.get_non_default_test_subnets_for_vpc(vpc=vpc, user=user, zone=zone,
                                                                    count=1)[0]
@@ -4052,7 +4052,7 @@ class VpcSuite(CliTestRunner):
                 self.status('Attempting to delete subnet and dependency artifacts from this test')
                 user.ec2.delete_subnet_and_dependency_artifacts(subnet)
 
-    def test6f1_eni_per_vmtype_test(self, vmtype='m1.large'):
+    def test6f1_eni_per_vmtype_test(self, vmtype='t2.large'):
         """
         Verify that a user can attach the number of ENIs the vmtype allows.
         Verify that if a user attemtps to exceed the # of ENIs the proper error is returned.
@@ -4066,7 +4066,7 @@ class VpcSuite(CliTestRunner):
         vmtype = user.ec2.get_vm_type_info(vmtype)
 
         try:
-            self.modify_vm_type_store_orig('m1.small', network_interfaces=3)
+            self.modify_vm_type_store_orig('t2.small', network_interfaces=3)
             for zone in self.zones:
                 subnet = self.get_non_default_test_subnets_for_vpc(vpc=vpc, user=user, zone=zone,
                                                                    count=1)[0]
@@ -4173,7 +4173,7 @@ class VpcSuite(CliTestRunner):
             raise RuntimeError('TCP port 22 status failed for ip:"{0}". Attempt:{1}, '
                                'elapsed:{2}/{3}'.format(ip, attempts, elapsed, timeout ))
         try:
-            self.modify_vm_type_store_orig('m1.small', network_interfaces=3)
+            self.modify_vm_type_store_orig('t2.small', network_interfaces=3)
             for zone in self.zones:
                 subnet = self.get_non_default_test_subnets_for_vpc(vpc=vpc, user=user, zone=zone,
                                                                    count=1)[0]
@@ -4389,7 +4389,7 @@ class VpcSuite(CliTestRunner):
         group = self.get_test_security_groups(vpc=vpc, count=1, user=user)[0]
 
         try:
-            self.modify_vm_type_store_orig('m1.small', network_interfaces=3)
+            self.modify_vm_type_store_orig('t2.small', network_interfaces=3)
             for zone in self.zones:
                 self.status('Beginning Migration test setup for zone:"{0}"'.format(zone))
                 self.tc.admin.ec2.show_vm_types(zone=zone)
@@ -4399,7 +4399,7 @@ class VpcSuite(CliTestRunner):
                 eni1, eni2 = self.get_test_enis_for_subnet(subnet=subnet2, user=user, count=2)
                 self.status('Creating VMs for this test...')
                 vm1, vm2 = self.get_test_instances(zone=zone, group_id=group.id, vpc_id=vpc.id,
-                                                   subnet_id=subnet1.id, instance_type='m1.small',
+                                                   subnet_id=subnet1.id, instance_type='t2.small',
                                                    count=2)
                 instances += [vm1, vm2]
                 self.status('Prepping test Vms. '
@@ -4572,7 +4572,7 @@ class VpcSuite(CliTestRunner):
                 if not out:
                     raise Exception('Testfile not found or empty on ssh host:{0}, id:{1}'
                                     .format(ssh.host, id))
-                instance_id = re.search('i-\w{8}', out)
+                instance_id = re.search('i-\w{8}\w{9}?', out)
                 if instance_id:
                     instance_id = instance_id.group()
                     if instance_id != id:
@@ -4605,7 +4605,7 @@ class VpcSuite(CliTestRunner):
                     pass
                 raise E
         try:
-            self.modify_vm_type_store_orig('m1.small', network_interfaces=3)
+            self.modify_vm_type_store_orig('t2.small', network_interfaces=3)
             for zone in self.zones:
                 subnet1, subnet2 = self.get_non_default_test_subnets_for_vpc(vpc=vpc, user=user,
                                                                              zone=zone, count=2)
@@ -4619,7 +4619,7 @@ class VpcSuite(CliTestRunner):
                 self.status('Creating VMs for this test...')
                 vm1, vm2, proxyvm = self.get_test_instances(zone=zone, group_id=group.id,
                                                         vpc_id=vpc.id, subnet_id=subnet1.id,
-                                                        instance_type='m1.small',
+                                                        instance_type='t2.small',
                                                         auto_connect=True, count=3)
                 instances = [vm1, vm2, proxyvm]
                 status('Writing Instance ID files to guests')
@@ -4930,7 +4930,7 @@ class VpcSuite(CliTestRunner):
                                    .format(ip, vm_tx, elapsed,timeout))
 
         try:
-            self.modify_vm_type_store_orig('m1.small', network_interfaces=3)
+            self.modify_vm_type_store_orig('t2.small', network_interfaces=3)
             for zone in self.zones:
                 current_zone = zone
                 status('Setting security group rules...')
@@ -4959,12 +4959,12 @@ class VpcSuite(CliTestRunner):
                 status('Creating VMs for this test...')
                 vm_tx, vm_rx  = self.get_test_instances(zone=zone, group_id=primary_group.id,
                                                         vpc_id=vpc.id, subnet_id=primary_subnet.id,
-                                                        instance_type='m1.small',
+                                                        instance_type='t2.small',
                                                         auto_connect=True, count=2,
                                                         monitor_to_running=False)
                 vm_rx2 = self.get_test_instances(zone=zone, group_id=primary_group2,
                                                  vpc_id=vpc.id, subnet_id=primary_subnet2.id,
-                                                 instance_type='m1.small',
+                                                 instance_type='t2.small',
                                                  auto_connect=True, count=1,
                                                  monitor_to_running=False)[0]
                 instances = [vm_tx, vm_rx, vm_rx2]
@@ -5360,8 +5360,8 @@ class VpcSuite(CliTestRunner):
         group2 = self.get_test_security_groups(vpc=vpc, count=1, rules=test_rules, user=user)[0]
 
         try:
-            status('Modifying instance type m1.small to allow for more ENIs...')
-            self.modify_vm_type_store_orig('m1.small', network_interfaces=3)
+            status('Modifying instance type t2.small to allow for more ENIs...')
+            self.modify_vm_type_store_orig('t2.small', network_interfaces=3)
             for zone in self.zones:
                 primary_sub, subnet1, subnet2 = self.get_non_default_test_subnets_for_vpc(
                     vpc=vpc, user=user, zone=zone, count=3)
@@ -5373,7 +5373,7 @@ class VpcSuite(CliTestRunner):
                 status('Creating VM in zone:{0} for this test...'.format(zone))
                 vm1, vm2 = self.get_test_instances(zone=zone, group_id=primary_group.id,
                                                    vpc_id=vpc.id, subnet_id=primary_sub.id,
-                                                   instance_type='m1.small', count=2)
+                                                   instance_type='t2.small', count=2)
                 for eni in [eni1b, eni2b]:
                     vm2.attach_eni(eni)
                     user.ec2.modify_network_interface_attributes(eni, source_dest_check=False)
@@ -5467,7 +5467,7 @@ class VpcSuite(CliTestRunner):
         gws = []
 
         try:
-            self.modify_vm_type_store_orig('m1.small', network_interfaces=3)
+            self.modify_vm_type_store_orig('t2.small', network_interfaces=3)
             for zone in self.zones:
                 subnet = self.create_test_subnets(vpc=vpc, zones=[zone], user=user)[0]
                 subnets.append(subnet)
@@ -5557,7 +5557,7 @@ class VpcSuite(CliTestRunner):
         gws = []
 
         try:
-            self.modify_vm_type_store_orig('m1.small', network_interfaces=3)
+            self.modify_vm_type_store_orig('t2.small', network_interfaces=3)
             for zone in self.zones:
                 subnet = self.create_test_subnets(vpc=vpc, zones=[zone], user=user)[0]
                 subnets.append(subnet)
@@ -5644,7 +5644,7 @@ class VpcSuite(CliTestRunner):
         gws = []
 
         try:
-            self.modify_vm_type_store_orig('m1.small', network_interfaces=3)
+            self.modify_vm_type_store_orig('t2.small', network_interfaces=3)
             for zone in self.zones:
                 subnet = self.create_test_subnets(vpc=vpc, zones=[zone], user=user)[0]
                 subnets.append(subnet)
@@ -5737,7 +5737,7 @@ class VpcSuite(CliTestRunner):
                                                               ('icmp', -1, -1, '0.0.0.0/0'),
                                                               ('udp', 100, 101, '0.0.0.0/0')])[0]
         try:
-            self.modify_vm_type_store_orig('m1.small', network_interfaces=3)
+            self.modify_vm_type_store_orig('t2.small', network_interfaces=3)
             for zone in self.zones:
                 subnet = self.create_test_subnets(vpc=vpc, zones=[zone], user=user,
                                                   count_per_zone=1)[0]
@@ -5952,7 +5952,7 @@ class VpcSuite(CliTestRunner):
         subnets = []
         eips = []
         try:
-            self.modify_vm_type_store_orig('m1.small', network_interfaces=3)
+            self.modify_vm_type_store_orig('t2.small', network_interfaces=3)
             for zone in self.zones:
                 limit = proplimit
                 gws = []

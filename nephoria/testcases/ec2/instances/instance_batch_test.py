@@ -61,7 +61,7 @@ class InstanceBatchTest():
                                       'default:"InstanceBatchTestKey_<timestamp>"')
         parser.add_option('--zone', type=str, default=None,
                                  help='Name of availability zone to run VMs in')
-        parser.add_option('--vmtype', type=str, default='t1.micro',
+        parser.add_option('--vmtype', type=str, default='t2.micro',
                                  help='Instance Vmtype to use')
         parser.add_option('--results-file', type=str, default=None,
                                  help='File to save results to')

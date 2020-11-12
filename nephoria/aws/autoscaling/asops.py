@@ -196,7 +196,7 @@ class ASops(BotoBaseOps):
         if len(groups) > 0:
             if len(lcs) == 0:
                 emi = EC2ops.get_emi()
-                self.create_launch_config(name='lc-helper', instance_type='m1.small', image_id=emi)
+                self.create_launch_config(name='lc-helper', instance_type='t2.small', image_id=emi)
                 lcs = self.get_all_launch_config_names()
             for i in range(g):
                 try:

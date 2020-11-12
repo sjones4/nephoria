@@ -1035,7 +1035,8 @@ class EuInstance(Instance, TaggedResource, Machine):
             volume_id = volume
         else:
             volume_id = volume.id
-        return self.find_block_dev_by_serial(volume_id)
+        serial = volume_id[:12]
+        return self.find_block_dev_by_serial(serial)
 
     def attach_volume(self, volume, dev=None, timeout=180, write_len=32, md5_len=None,
                       overwrite=False):

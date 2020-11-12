@@ -717,7 +717,7 @@ disable_root: false"""
 
         if not group_id:
             if isinstance(group, basestring):
-                if re.match('^sg-\w{8}\s*$', group):
+                if re.match('^sg-\w{8}\w{9}?\s*$', group):
                     group_id = group
                 else:
                     group_name = group
@@ -4028,7 +4028,7 @@ disable_root: false"""
         :param image: Image object to use, default is pick the first emi found in the system
         :param keypair: Keypair name to use for the instances, defaults to none
         :param group: Security group name to apply to this set of instnaces, defaults to none
-        :param type: VM type to use for these instances, defaults to m1.small
+        :param type: VM type to use for these instances, defaults to t2.small
         :param zone: Availability zone to run these instances
         :param min: Minimum instnaces to launch, default 1
         :param max: Maxiumum instances to launch, default 1
@@ -4226,7 +4226,7 @@ disable_root: false"""
                 for group in groups:
                     if group:
                         if isinstance(group, basestring):
-                            if not re.match('^sg-\w{8}$',str(group).strip()):
+                            if not re.match('^sg-\w{8}\w{9}?$',str(group).strip()):
                                 try:
                                     group = self.get_security_group(name=group)
                                     group = group.id
@@ -5383,7 +5383,7 @@ disable_root: false"""
                 group_id = group.id
                 group_name = group.name
                 vpc_id = group.vpc_id
-            elif re.match('^sg-\w{8}$',str(group).strip()):
+            elif re.match('^sg-\w{8}\w{9}?$',str(group).strip()):
                 group_id = group
             elif isinstance(group, basestring):
                 group_name = group
@@ -6985,7 +6985,7 @@ disable_root: false"""
         Modify instance type attributes such as cpu, disk, memory, and network interface
         counts.
 
-        :param instance_type: string name of instance type. (ie. 'm1.small')
+        :param instance_type: string name of instance type. (ie. 't2.small')
         :param cpu: int number of CPUs
         :param disk: int number of disks
         :param memory: int Gigs of memory
