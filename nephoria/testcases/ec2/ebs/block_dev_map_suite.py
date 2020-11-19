@@ -828,8 +828,9 @@ class Block_Device_Mapping_Tests(CliTestRunner):
                                                                                 map_device=bdm_snapshot_dev)
             self.status('Checking instance for ephemeral disk and size...')
             guest_ephemeral_dev = instance.check_ephemeral_against_vmtype()
+            guest_ephemeral_dev_list = [] if guest_ephemeral_dev is None else [guest_ephemeral_dev]
             self.status("Ephemeral verified, Attempting to find guest's device empty volume by process of elimination...")
-            remaining_devs=self.find_remaining_devices(instance,[guest_root_dev, guest_snap_dev, guest_ephemeral_dev])
+            remaining_devs=self.find_remaining_devices(instance,[guest_root_dev, guest_snap_dev] + guest_ephemeral_dev_list)
             if len(remaining_devs) != 1:
                 raise Exception('Could not find empty vol dev from remaining devs on guest:' + str(",").join(remaining_devs))
             guest_emptyvol_device = '/dev/' + str(remaining_devs[0]).replace('/dev/','')
@@ -934,8 +935,9 @@ class Block_Device_Mapping_Tests(CliTestRunner):
                                                                                 map_device=bdm_snapshot_dev)
             self.status('Checking instance for ephemeral disk and size...')
             guest_ephemeral_dev = instance.check_ephemeral_against_vmtype()
+            guest_ephemeral_dev_list = [] if guest_ephemeral_dev is None else [guest_ephemeral_dev]
             self.status("Attempting to find guest's device empty volume by process of elimination...")
-            remaining_devs=self.find_remaining_devices(instance,[guest_root_dev, guest_snap_dev, guest_ephemeral_dev])
+            remaining_devs=self.find_remaining_devices(instance,[guest_root_dev, guest_snap_dev] + guest_ephemeral_dev_list)
             if len(remaining_devs) != 1:
                 raise Exception('Could not find empty vol dev from remaining devs on guest:' + str(",").join(remaining_devs))
             guest_emptyvol_device = '/dev/' + str(remaining_devs[0]).replace('/dev/','')
@@ -1118,6 +1120,7 @@ class Block_Device_Mapping_Tests(CliTestRunner):
             self.user.ec2.show_block_device_map(instance.block_device_mapping)
             self.status('Checking instance for ephemeral disk and size...')
             guest_ephemeral_dev = instance.check_ephemeral_against_vmtype()
+            guest_ephemeral_dev_list = [] if guest_ephemeral_dev is None else [guest_ephemeral_dev]
             self.status('Checking instance devices for md5sums which match original volume/snapshots.\nThis step will also \
                          record the volume id, md5 and guest device within the instance for later stop, start, and detach \
                          operations...')
@@ -1142,7 +1145,7 @@ class Block_Device_Mapping_Tests(CliTestRunner):
 
             #Empty vol checks...
             self.status("Attempting to find guest's device empty volume by process of elimination...")
-            remaining_devs=self.find_remaining_devices(instance,[guest_root_dev, guest_snap_dev, guest_ephemeral_dev])
+            remaining_devs=self.find_remaining_devices(instance,[guest_root_dev, guest_snap_dev] + guest_ephemeral_dev_list)
             if len(remaining_devs) != 1:
                 raise Exception('Could not find empty vol dev from remaining devs on guest:' + str(",").join(remaining_devs))
             guest_emptyvol_device = '/dev/' + str(remaining_devs[0]).replace('/dev/','')
@@ -1280,6 +1283,7 @@ class Block_Device_Mapping_Tests(CliTestRunner):
             self.user.ec2.show_block_device_map(instance.block_device_mapping)
             self.status('Checking instance for ephemeral disk and size...')
             guest_ephemeral_dev = instance.check_ephemeral_against_vmtype()
+            guest_ephemeral_dev_list = [] if guest_ephemeral_dev is None else [guest_ephemeral_dev]
 
             self.status('Checking instance devices for md5sums which match original volume/snapshots.\nThis step will also \
                          record the volume id, md5 and guest device within the instance for later stop, start, and detach \
@@ -1302,7 +1306,7 @@ class Block_Device_Mapping_Tests(CliTestRunner):
                                 ', the size requested for bdm snap:' + str(self.base_test_snapshot.id))
 
             self.status("Attempting to find guest's device empty volume by process of elimination...")
-            remaining_devs=self.find_remaining_devices(instance,[guest_root_dev, guest_snap_dev, guest_ephemeral_dev])
+            remaining_devs=self.find_remaining_devices(instance,[guest_root_dev, guest_snap_dev] + guest_ephemeral_dev_list)
             if len(remaining_devs) != 1:
                 raise Exception('Could not find empty vol dev from remaining devs on guest:' + str(",").join(remaining_devs))
             guest_emptyvol_device = '/dev/' + str(remaining_devs[0]).replace('/dev/','')
