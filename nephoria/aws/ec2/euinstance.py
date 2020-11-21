@@ -2410,6 +2410,9 @@ class EuInstance(Instance, TaggedResource, Machine):
     def check_ephemeral_against_vmtype(self):
         gb = 1073741824
 
+        if self.vmtype_info.diskCount == 0:
+            return None
+
         size = self.vmtype_info.disk
         ephemeral_dev = self.get_ephemeral_dev()
         block_size = self.get_blockdev_size_in_bytes(ephemeral_dev)

@@ -197,6 +197,7 @@ class EucaVmType(EC2Object):
         self.memory = None
         self.cpu = None
         self.disk = None
+        self.diskCount = None
         self.networkinterfaces = None
         self.region = None
         self.availability = None
@@ -220,6 +221,8 @@ class EucaVmType(EC2Object):
                 self.cpu = int(value)
             if ename == 'disk':
                 self.disk = int(value)
+            if ename == 'diskcount':
+                self.diskCount = int(value)
             if ename == 'memory':
                 self.memory = int(value)
             else:
@@ -7039,6 +7042,7 @@ disable_root: false"""
                     base.index = vmtype.index
                 base.cpu = vmtype.cpu or base.cpu
                 base.disk = vmtype.disk or base.disk
+                base.diskCount = vmtype.diskCount or base.diskCount
                 base.memory = vmtype.memory or base.memory
                 base.region = vmtype.region or base.region
                 base.networkinterfaces = vmtype.networkinterfaces or base.networkinterfaces
