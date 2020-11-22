@@ -2496,8 +2496,6 @@ disable_root: false"""
                 volumes = self.connection.get_all_volumes([volume.id])
                 if len(volumes) == 1:
                     volume = volumes[0]
-                    #previous_status = volume.status
-                    #self.delete_volume(volume.id)
                 elif len(volumes) == 0:
                     vollist.remove(volume)
                     continue
@@ -2530,13 +2528,17 @@ disable_root: false"""
                     else:
                         raise(e)
                 if len(volumes) == 1:
+                    if volumes[0].status == "deleted":
+                        vollist.remove(volume)
+                        self.log.debug("Volume status deleted")
+                        continue
                     volume = volumes[0]
                 elif len(volumes) == 0:
                     vollist.remove(volume)
                     self.log.debug("Volume no longer found")
                     continue
                 self.log.debug(str(volume) + " in " + volume.status)
-                if volume and volume.status == "deleted"and volume in vollist:
+                if volume and volume.status == "deleted" and volume in vollist:
                     vollist.remove(volume)
                     if volume in self.test_resources['volumes']:
                         self.test_resources['volumes'].remove(volume)
